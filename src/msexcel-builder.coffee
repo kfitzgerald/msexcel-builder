@@ -10,7 +10,7 @@ tool =
   i2a : (i) ->
     return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123'.charAt(i-1)
 
-opt = 
+opt =
   tmpl_path : __dirname
 
 class ContentTypes
@@ -49,9 +49,9 @@ class DocPropsApp
       tmp.ele('vt:lpstr',@book.sheets[i-1].name)
     props.ele('Company')
     props.ele('LinksUpToDate','false')
-    props.ele('SharedDoc','false')  
-    props.ele('HyperlinksChanged','false')  
-    props.ele('AppVersion','12.0000') 
+    props.ele('SharedDoc','false')
+    props.ele('HyperlinksChanged','false')
+    props.ele('AppVersion','12.0000')
     return props.end()
 
 class XlWorkbook
@@ -62,7 +62,7 @@ class XlWorkbook
     wb.att('xmlns','http://schemas.openxmlformats.org/spreadsheetml/2006/main')
     wb.att('xmlns:r','http://schemas.openxmlformats.org/officeDocument/2006/relationships')
     wb.ele('fileVersion ',{appName:'xl',lastEdited:'4',lowestEdited:'4',rupBuild:'4505'})
-    wb.ele('workbookPr',{filterPrivacy:'1',defaultThemeVersion:'124226'}) 
+    wb.ele('workbookPr',{filterPrivacy:'1',defaultThemeVersion:'124226'})
     wb.ele('bookViews').ele('workbookView ',{xWindow:'0',yWindow:'90',windowWidth:'19200',windowHeight:'11640'})
     tmp = wb.ele('sheets')
     for i in [1..@book.sheets.length]
@@ -72,7 +72,7 @@ class XlWorkbook
 
 class XlRels
   constructor: (@book)->
-  
+
   toxml: ()->
     rs = xml.create('Relationships',{version:'1.0',encoding:'UTF-8',standalone:true})
     rs.att('xmlns','http://schemas.openxmlformats.org/package/2006/relationships')
@@ -126,7 +126,7 @@ class Sheet
         @data[row][col].v = @book.ss.str2id('' + str)
       return @data[row][col].dataType = 'string'
     else if typeof str == 'number'
-      @data[row][col].v = str
+      @data[row][col].v = '' + str
       return @data[row][col].dataType = 'number'
     else
       @data[row][col].v = str
@@ -144,7 +144,7 @@ class Sheet
   font: (col, row, font_s)->
     @styles['font_'+col+'_'+row] = @book.st.font2id(font_s)
 
-  fill: (col, row, fill_s)-> 
+  fill: (col, row, fill_s)->
     @styles['fill_'+col+'_'+row] = @book.st.fill2id(fill_s)
 
   border: (col, row, bder_s)->
